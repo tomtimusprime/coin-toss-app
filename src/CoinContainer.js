@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import {choice} from "./helpers";
+import { choice } from "./helpers";
+import Coin from "./Coin"
 
 class CoinContainer extends Component {
     static defaultProps = {
@@ -22,36 +23,46 @@ class CoinContainer extends Component {
     flipCoin() {
         const newCoin = choice(this.props.coins);
         this.setState(st => {
-            let newState = {
-                ...st,
-                currCoin: newCoin,
-                nFlips: st.nFlips + 1
-            } 
-            if(newCoin.side === "heads") {
-                newState.nHeads += 1
-            } else {
-                newState.nTails += 1
-            }
-            
             return {
                 currCoin: newCoin,
                 nFlips: st.nFlips + 1,
-            };
-        });
-    }
-    handClick(e) {
-        this.flipCoin();
-    }
-    render() {
-        return (
-            <div className="CoinContainer">
-                <h2>Let's flip a coin!</h2>
-                <button onClick={this.handleClick}></button>
-                <p>Out of {this.state.nFlips} flips, there have been {this.state.nHeads} heads and {this.state.nTails} tails.</p>
+                nHeads: st.nHeads + (newCoin.side === "heads" ? 1 : 0),
+                nTails: st.nTails + (newCoin.side === "tails" ? 1 : 0),
+            }
+        })};
 
-            </div>
-        )
-    }
-}
+        handleClick(e) {
+            this.flipCoin();
+        }
+        render() {
+            return (
+                <div className="CoinContainer">
+                    <h2>Let's flip a coin!</h2>
+                    <button onClick={this.handleClick}>Flip Me!</button>
+                    {this.state.currCoin && <Coin info={this.props.currCoin}/>}
+                    <p>Out of {this.state.nFlips} flips, there have been {this.state.nHeads} heads and {this.state.nTails} tails.</p>
 
-export default CoinContainer;
+                </div>
+            )
+        }
+    }
+
+ export default CoinContainer;
+
+
+//Alternate Syntax
+// let newState = {
+//     ...st,
+//     currCoin: newCoin,
+//     nFlips: st.nFlips + 1
+// } 
+// if(newCoin.side === "heads") {
+//     newState.nHeads += 1
+// } else {
+//     newState.nTails += 1
+// }
+
+// return {
+//     currCoin: newCoin,
+//     nFlips: st.nFlips + 1,
+// };
