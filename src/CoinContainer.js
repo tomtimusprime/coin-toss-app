@@ -5,8 +5,8 @@ import Coin from "./Coin"
 class CoinContainer extends Component {
     static defaultProps = {
         coins: [
-            { side: "heads", url: "https://tinyurl.com/react-coin-heads-jpg" },
-            { side: "tails", url: "https://tinyurl.com/react-coin-tails-jpg" }
+            { side: "heads", imgSrc: "https://tinyurl.com/react-coin-heads-jpg" },
+            { side: "tails", imgSrc: "https://www.marshu.com/articles/images-website/articles/presidents-on-coins/half-dollar-coin-tail.jpg" }
         ]
     }
 
@@ -38,8 +38,8 @@ class CoinContainer extends Component {
             return (
                 <div className="CoinContainer">
                     <h2>Let's flip a coin!</h2>
+                    {this.state.currCoin && <Coin info={this.state.currCoin}/>}
                     <button onClick={this.handleClick}>Flip Me!</button>
-                    {this.state.currCoin && <Coin info={this.props.currCoin}/>}
                     <p>Out of {this.state.nFlips} flips, there have been {this.state.nHeads} heads and {this.state.nTails} tails.</p>
 
                 </div>
