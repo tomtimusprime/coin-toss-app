@@ -36,7 +36,6 @@ class CoinContainer extends Component {
             return {
                 currCoin: newCoin,
                 nFlips: st.nFlips + 1,
-
             };
         });
     }
